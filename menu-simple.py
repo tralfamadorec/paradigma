@@ -1,17 +1,31 @@
 def input_data():
-    print("Функция ввода данных (заглушка)")
-    return "sample text"
+    text = input("Введите текст: ")
+    return text
 
 def algorithm(data):
-    print("Функция выполнения алгоритма (заглушка)")
-    return ["palindrome1", "palindrome2"]
+    # упрощенный алгоритм ищет слова, которые читаются одинаково с начала и конца
+    words = data.split()
+    palindromes = []
+    for word in words:
+        # пока что проверка без учета регистра и знаков препинания
+        if len(word) > 1 and word.lower() == word.lower()[::-1]:
+            palindromes.append(word)
+    print(f"Найдено палиндромов: {len(palindromes)}")
+    return palindromes
 
 def out_res(result):
-    print("Функция вывода результата (заглушка)")
-    print(f"Результат: {result}")
+    print("РЕЗУЛЬТАТЫ ПОИСКА")
+    if result:
+        print("Найденные палиндромы:")
+        i = 1
+        for palindrome in result:
+            print(f"  {i}. {palindrome}")
+            i += 1
+    else:
+        print("Палиндромы не найдены")
 
 def exit_prog():
-    print("Выход из программы")
+    print("Выход из программы...")
     exit()
 
 def main():

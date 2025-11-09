@@ -1,13 +1,50 @@
+import random
+
 def input_data():
-    text = input("Введите текст: ")
+    print("1. Ввести текст вручную")
+    print("2. Сгенерировать случайный текст")
+    choice = input("Выберите способ ввода (1 или 2): ").strip()
+    match choice:
+        case "1":
+            text = input("Введите текст: ")
+        case "2":
+            text = rand_text()
+            print(f"Сгенерированный текст: {text}")
+        case _:
+            print("Неверный выбор, используется ручной ввод.")
+            text = input("Введите текст: ")
+
     return text
 
+def rand_text():
+    # случайный текст с палиндромами и обычными словами
+    palindromes = [
+        'топот', 'заказ', 'шалаш', 'Анна', 'комок', 'потоп', 'ротор',
+        'дед', 'казак', 'мадам', 'поп', 'кабак', 'ракетар', 'наган'
+    ]
+    regular_words = [
+        'программа', 'компьютер', 'алгоритм', 'текст', 'данные', 'меню',
+        'функция', 'разработка', 'приложение', 'консоль', 'интерфейс',
+        'палиндром', 'система', 'код', 'тестирование', 'пользователь',
+        'выполнение', 'результат', 'обработка', 'поиск', 'анализ'
+    ]
+    text_words = []
+    for _ in range(random.randint(8, 12)):
+        if random.choice([True, False]):  # 50% шанс на попадение палиндрома в текст
+            word = random.choice(palindromes)
+            if random.choice([True, False, False]):  # 33% шанс на добавление знаков препинания в текст
+                word += random.choice(['.', ',', '!', '?'])
+            text_words.append(word)
+        else:
+            text_words.append(random.choice(regular_words))
+
+    return ' '.join(text_words)
 
 def algorithm(data):
     words = data.split()
     palindromes = []
     for word in words:
-        # убираем знаки припенания
+        # убираем знаки препинания
         clean_word = ""
         for char in word:
             if char.isalpha():  # оставляем только буквы

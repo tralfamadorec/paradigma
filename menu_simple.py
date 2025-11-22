@@ -1,18 +1,24 @@
 import random
 
-def is_int(s):
-    if s.startswith('-'):
-        return s[1:].isdigit()
+""" ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ """
+
+def is_int(s): # проверяет, можно ли преоьразовать строку в целое число
+    if not s:
+        return False
+    if s[0] == '-':
+        return len(s) > 1 and s[1:].isdigit()
     return s.isdigit()
 
-def enter_valid_int(prompt):
+def enter_valid_int(prompt): # ввод целого числа в проверкой
     while True:
         value = input(prompt).strip()
         if is_int(value):
             return int(value)
         print("Ошибка: введите целое число.")
 
-def input_data():
+""" ОСНОВНЫЕ ФУНКЦИИ МЕНЮ """
+
+def input_data(): # ввод исходных данных
     print("\nВыберите способ ввода данных:")
     print("1. Вручную")
     print("2. Случайная генерация")
@@ -29,16 +35,20 @@ def input_data():
         for i in range(n):
             while True:
                 row_input = input(f"Строка {i + 1}: ").strip()
-                row = row_input.split()
-                if len(row) != n:
+                parts = row_input.split()
+                if len(parts) != n:
                     print(f"Ошибка: должно быть ровно {n} чисел.")
                     continue
-                # Проверка, что все элементы — целые числа
-                try:
-                    row = [int(x) for x in row]
+                row = []
+                for x in parts:
+                    if is_int(x):
+                        row.append(int(x))
+                    else:
+                        print("Ошибка: все элементы должны быть целыми числами.")
+                        row = None
+                        break
+                if row is not None:
                     break
-                except ValueError:
-                    print("Ошибка: все элементы должны быть целыми числами.")
             matrix.append(row)
     else:
         min_val = enter_valid_int("Минимальное значение: ")
@@ -63,6 +73,8 @@ def out_res():
 
 def exit_prog():
     print("exit_prog \n")
+
+""" ГЛАВНАЯ ФУНКЦИЯ """
 
 def main():
     data = None

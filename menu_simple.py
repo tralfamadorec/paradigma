@@ -51,13 +51,33 @@ def input_data(): # ввод исходных данных
     return matrix
 
 def algorithm(data):
-    print("algorithm \n")
+    print("Алгоритм выполняется...")
+    matrix = data
+    n = len(matrix)
+    if n == 0:
+        return {"result": None}
+    min_elements = []
+    for k in range(-n + 1, n):
+        diagonal = []
+        for i in range(n):
+            j = n - 1 - i - k  # формула для побочной диагонали со смещением k
+            if 0 <= j < n:
+                diagonal.append(matrix[i][j])
+        if diagonal:
+            min_elements.append(min(diagonal))
 
-def out_res():
-    print("out_res \n")
+    result_value = max(min_elements) if min_elements else None
+    return {"result": result_value}
+
+def out_res(result):
+    value = result["result"]
+    if value is not None:
+        print(f"\nРезультат: {value}")
+    else:
+        print("\nРезультат не определён.")
 
 def exit_prog():
-    print("exit_prog \n")
+    print("Выход из программы... \n")
 
 """ ГЛАВНАЯ ФУНКЦИЯ """
 
@@ -81,13 +101,12 @@ def main():
                 if data is None:
                     print("Ошибка: сначала введите данные!")
                 else:
-                    algorithm(data)
-                    result = "done"
+                    result = algorithm(data)  # сохраняем реальный результат
             case "3":
                 if result is None:
                     print("Ошибка: сначала выполните алгоритм!")
                 else:
-                    out_res()
+                    out_res(result)
             case "4":
                 exit_prog()
                 break

@@ -1,20 +1,5 @@
 import random
-
-""" ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ """
-
-def is_int(s): # проверяет, можно ли преоьразовать строку в целое число
-    if not s:
-        return False
-    if s[0] == '-':
-        return len(s) > 1 and s[1:].isdigit()
-    return s.isdigit()
-
-def enter_valid_int(prompt): # ввод целого числа в проверкой
-    while True:
-        value = input(prompt).strip()
-        if is_int(value):
-            return int(value)
-        print("Ошибка: введите целое число.")
+from menu_template import is_int, enter_valid_int
 
 """ ОСНОВНЫЕ ФУНКЦИИ МЕНЮ """
 
